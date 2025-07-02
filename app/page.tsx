@@ -216,9 +216,76 @@ export default function Home() {
           </a>
         </section>
 
-        <footer className="bg-black text-gray-300 py-16 px-6 text-center text-xs">
-          © {new Date().getFullYear()} EditRelay. All rights reserved.
-        </footer>
+<footer className="bg-black text-gray-300 py-16 px-6 text-center text-xs max-w-7xl mx-auto">
+  <div className="grid md:grid-cols-4 gap-12 text-sm text-left">
+    <div>
+      <h3 className="text-white text-xl font-semibold mb-4">EditRelay</h3>
+      <p className="text-gray-400">Helping creators scale with content, strategy, and design.</p>
+    </div>
+
+    <div>
+      <h4 className="text-white font-semibold mb-4">Services</h4>
+      <ul className="space-y-2">
+        {['Video Editing', 'Podcast Production', 'Account Management', 'Brand Strategy'].map(service => (
+          <li key={service}>{service}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h4 className="text-white font-semibold mb-4">Subscribe</h4>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault()
+          const form = e.target as HTMLFormElement
+          const email = (form.elements.namedItem('sub') as HTMLInputElement).value
+          try {
+            const res = await fetch('https://sheetdb.io/api/v1/41197uteml5jj', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ data: [{ Email: email }] }),
+            })
+            if (res.ok) form.reset()
+            else {
+              alert('Subscription failed.')
+              console.error('SheetDB Error:', await res.text())
+            }
+          } catch (error) {
+            console.error('Network error:', error)
+          }
+        }}
+        className="max-w-sm"
+      >
+        <input
+          name="sub"
+          type="email"
+          required
+          placeholder="Your Email"
+          className="w-full px-4 py-2 rounded-md mb-2 text-lime-400"
+        />
+        <button
+          type="submit"
+          className="w-full bg-lime-400 hover:bg-lime-500 text-black py-2 rounded-md font-medium"
+        >
+          Subscribe
+        </button>
+      </form>
+    </div>
+
+    <div>
+      <h4 className="text-white font-semibold mb-4">Contact</h4>
+      <p className="text-gray-400">Reach out to start growing your brand with us.</p>
+      <a href="#contact" className="inline-block mt-2 bg-lime-400 hover:bg-lime-500 text-black px-4 py-2 rounded-full font-medium">
+        Contact Us Today
+      </a>
+    </div>
+  </div>
+
+  <div className="mt-10 text-center text-gray-500">
+    © {new Date().getFullYear()} EditRelay. All rights reserved.
+  </div>
+</footer>
+
       </main>
     </>
   )
