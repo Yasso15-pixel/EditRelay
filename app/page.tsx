@@ -11,6 +11,7 @@ export default function Home() {
   const [loopNum, setLoopNum] = useState(0)
   const [deleting, setDeleting] = useState(false)
   const [typingSpeed, setTypingSpeed] = useState(120)
+  const [menuOpen, setMenuOpen] = useState(false)
   const words = ['editing', 'repurposing', 'management']
   
   useEffect(() => {
@@ -55,37 +56,69 @@ export default function Home() {
       </Head>
     <main className="bg-white text-black font-sans">
 
-      {/* Navbar */}
-      <header className="w-full py-6 shadow-sm justify-center items-center bg-white sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6">
-          
+        <header className="w-full py-6 shadow-sm justify-center items-center bg-white sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto flex justify-between items-center px-6">
 
+            <a href="#home" className="flex items-center space-x-2">
+              <span className="text-xl text-lime-400 font-bold">EditRelay</span>
+            </a>
 
-          <a href="#home" className="flex items-center space-x-2">
+            {/* Hamburger button - visible on mobile only */}
+            <button
+              className="md:hidden text-black focus:outline-none"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+            >
+              {/* Simple hamburger icon */}
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                {menuOpen ? (
+                  <path d="M6 18L18 6M6 6l12 12" /> // X icon when open
+                ) : (
+                  <path d="M3 12h18M3 6h18M3 18h18" /> // Hamburger lines when closed
+                )}
+              </svg>
+            </button>
 
-            <span className="text-xl text-lime-400 font-bold">EditRelay</span>
-          </a>
+            {/* Nav - hidden on mobile, show on md+ */}
+            <nav className="hidden md:flex flex-1 justify-center">
+              <div className="bg-black text-white rounded-full px-8 py-3 flex space-x-8 text-md font-small relative">
+                <a href="#home" className="hover:text-lime-400 transition">Home</a>
+                <a href="#about" className="hover:text-lime-400 transition">About</a>
+                <a href="#work" className="hover:text-lime-400 transition">Work</a>
+                <a href="#services" className="hover:text-lime-400 transition">Services</a>
+                <a href="#contact" className="hover:text-lime-400 transition">Contact</a>
+              </div>
+            </nav>
 
-          <nav className="flex-1 flex justify-center">
-  <div className="bg-black text-white rounded-full px-8 py-3 flex space-x-8 text-md font-small relative">
+            {/* Call to action button - hidden on mobile */}
+            <a
+              href="#contact"
+              className="ml-4 bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium hidden md:inline-block"
+            >
+              Let’s Talk Now
+            </a>
+          </div>
 
-    <a href="#home" className="hover:text-lime-400 transition">Home</a>
-    <a href="#about" className="hover:text-lime-400 transition">About</a>
-    <a href="#work"className="hover:text-lime-400 transition">Work</a>
-    
-    <a href="#services" className="hover:text-lime-400 transition">Services</a>
-    <a href="#contact" className="hover:text-lime-400 transition">Contact</a>
-  </div>
-</nav>
+          {/* Mobile menu dropdown - visible only if menuOpen */}
+          {menuOpen && (
+            <nav className="md:hidden bg-black bg-opacity-95 text-white flex flex-col items-center space-y-4 py-4 rounded-b-lg mt-2 mx-6">
+              <a href="#home" onClick={() => setMenuOpen(false)} className="hover:text-lime-400 transition text-lg">Home</a>
+              <a href="#about" onClick={() => setMenuOpen(false)} className="hover:text-lime-400 transition text-lg">About</a>
+              <a href="#work" onClick={() => setMenuOpen(false)} className="hover:text-lime-400 transition text-lg">Work</a>
+              <a href="#services" onClick={() => setMenuOpen(false)} className="hover:text-lime-400 transition text-lg">Services</a>
+              <a href="#contact" onClick={() => setMenuOpen(false)} className="hover:text-lime-400 transition text-lg">Contact</a>
 
-          <a
-            href="#contact"
-            className="ml-4 bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium hidden md:inline-block"
-          >
-            Let’s Talk Now
-          </a>
-        </div>
-      </header>
+              {/* Optional: CTA button in mobile menu */}
+              <a
+                href="#contact"
+                onClick={() => setMenuOpen(false)}
+                className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
+              >
+                Let’s Talk Now
+              </a>
+            </nav>
+          )}
+        </header>
 
       {/* Hero */}
       <section id="home" className="text-center py-24 px-4 bg-gradient-to-b from-green-50 to-white">
