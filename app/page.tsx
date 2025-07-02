@@ -1,5 +1,5 @@
 'use client'
-import Image from 'next/image'
+
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import emailjs from '@emailjs/browser'

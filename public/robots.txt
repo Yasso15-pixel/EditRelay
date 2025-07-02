@@ -1,3 +1,9 @@
+# *
 User-agent: *
 Allow: /
+
+# Host
+Host: https://editrelay.com
+
+# Sitemaps
 Sitemap: https://editrelay.com/sitemap.xml
