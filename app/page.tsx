@@ -33,20 +33,20 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>EditRelay – Video Editing & Content Agency</title>
-        <meta name="description" content="EditRelay helps creators grow with video editing, podcast production, account management, and content repurposing services." />
+        <title>EditRelay – Expert Video Editing & Content Services</title>
+        <meta name="description" content="EditRelay partners with creators to accelerate growth through professional video editing, podcast production, content repurposing, and strategic account management." />
         <meta name="keywords" content="video editing, podcast editing, content repurposing, YouTube growth, social media management, EditRelay, content agency" />
         <meta name="author" content="EditRelay Team" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://editrelay.com" />
-        <meta property="og:title" content="EditRelay – Video Editing & Content Agency" />
-        <meta property="og:description" content="Helping creators scale with content editing, strategy, and digital management." />
+        <meta property="og:title" content="EditRelay – Expert Video Editing & Content Services" />
+        <meta property="og:description" content="Empowering creators with high-quality content editing, strategic repurposing, and digital management solutions." />
         <meta property="og:image" content="https://editrelay.com/og-image.png" />
         <meta property="og:url" content="https://editrelay.com" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="EditRelay – Video Editing & Content Agency" />
-        <meta name="twitter:description" content="Helping creators scale with editing, repurposing, and management." />
+        <meta name="twitter:title" content="EditRelay – Expert Video Editing & Content Services" />
+        <meta name="twitter:description" content="Boost your brand with professional editing, content repurposing, and digital growth management." />
         <meta name="twitter:image" content="https://editrelay.com/og-image.png" />
       </Head>
 
@@ -83,7 +83,7 @@ export default function Home() {
             href="#contact"
             className="ml-4 bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium hidden md:inline-block"
           >
-            Let’s Talk Now
+            Contact Us Today
           </a>
         </header>
 
@@ -104,25 +104,25 @@ export default function Home() {
               onClick={() => setMenuOpen(false)}
               className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
             >
-              Let’s Talk Now
+              Contact Us Today
             </a>
           </nav>
         )}
 
         <section id="home" className="text-center py-24 px-4 bg-gradient-to-b from-green-50 to-white">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            Crafting Tomorrow's Brands<br />with Digital Creativity
+            Elevate Your Brand<br />with Expert Digital Content
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-            At the forefront of innovation, we help creators scale through content <span className="text-lime-400 font-semibold">{text}</span>.
+            We empower creators to scale through professional content <span className="text-lime-400 font-semibold">{text}</span> and creative strategy.
           </p>
           <a href="#contact" className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium">
-            Let’s Talk Now
+            Get Started Today
           </a>
         </section>
 
         <section className="py-10 text-center">
-          <p className="text-gray-500">Trusted by 50+ content creators & startups</p>
+          <p className="text-gray-500">Trusted by over 50 creators and innovative startups</p>
           <div className="flex justify-center gap-8 mt-4 text-sm text-gray-400">
             {['CreatorHub', 'VideoMax', 'PodSync', 'ReelBoost'].map(client => (
               <span key={client}>{client}</span>
@@ -133,14 +133,13 @@ export default function Home() {
         <section id="about" className="bg-gray-100 py-20 text-center">
           <h2 className="text-3xl font-bold mb-6">About EditRelay</h2>
           <p className="max-w-2xl mx-auto text-gray-600 mb-10">
-            We're a digital agency helping creators and brands thrive through premium video editing, content strategy,
-            and modern production solutions tailored to grow your presence and maximize engagement.
+            We’re a creative agency dedicated to helping creators and brands thrive with premium video editing, content strategy, and modern production tailored to grow your reach and engagement.
           </p>
           <div className="flex justify-center gap-12 text-gray-700 text-center">
             {[
-              { num: '50+', label: 'Clients' },
-              { num: '5+', label: 'Years Experience' },
-              { num: '100%', label: 'Satisfaction' },
+              { num: '50+', label: 'Satisfied Clients' },
+              { num: '5+ Years', label: 'Industry Experience' },
+              { num: '100%', label: 'Client Satisfaction' },
             ].map(({ num, label }) => (
               <div key={label}>
                 <p className="text-4xl font-bold">{num}</p>
@@ -151,16 +150,16 @@ export default function Home() {
         </section>
 
         <section id="services" className="py-20 text-center px-4">
-          <h2 className="text-3xl font-bold mb-6">What We Offer</h2>
+          <h2 className="text-3xl font-bold mb-6">Our Services</h2>
           <div className="flex flex-wrap justify-center gap-4 text-lg">
-            {['Video Editing', 'Podcast Editing', 'Account Management', 'YouTube Growth', 'Content Repurposing'].map(service => (
+            {['Video Editing', 'Podcast Production', 'Account Management', 'YouTube Growth', 'Content Repurposing'].map(service => (
               <span key={service} className="bg-gray-200 px-5 py-2 rounded-full">{service}</span>
             ))}
           </div>
         </section>
 
         <section id="contact" className="bg-gray-100 py-20 px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Contact Us</h2>
+          <h2 className="text-3xl font-bold mb-6">Get in Touch</h2>
           <form
             onSubmit={(e) => {
               e.preventDefault()
@@ -186,14 +185,14 @@ export default function Home() {
               name="email"
               type="email"
               required
-              placeholder="Your Email"
+              placeholder="Enter your email address"
               className="w-full px-4 py-3 border border-gray-300 rounded-md"
             />
             <textarea
               name="message"
               rows={4}
               required
-              placeholder="How can we help?"
+              placeholder="Tell us how we can help you"
               className="w-full px-4 py-3 border border-gray-300 rounded-md"
             />
             <button
@@ -207,74 +206,18 @@ export default function Home() {
 
         <section className="bg-black text-white text-center py-20 px-4">
           <h2 className="text-4xl font-bold mb-4">
-            Let’s Create a Success Story<br />for Your Business Now
+            Let's Build Your Success Story<br />Together
           </h2>
           <p className="text-gray-400 mb-6 max-w-xl mx-auto">
-            This isn't a quick fix, but a real journey. Let us guide the way forward and elevate your content professionally.
+            Growth takes time. Let EditRelay guide your content journey with expertise and care.
           </p>
           <a href="#contact" className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium">
-            Let’s Talk Now
+            Contact Us Today
           </a>
         </section>
 
-        <footer className="bg-black text-gray-300 py-16 px-6">
-          <div className="grid md:grid-cols-4 gap-12 max-w-7xl mx-auto text-sm">
-            <div>
-              <h3 className="text-white text-xl font-semibold mb-4">EditRelay</h3>
-              <p className="text-gray-400">Helping creators scale with content, strategy, and design.</p>
-            </div>
-
-            <div>
-              <h4 className="text-white font-semibold mb-4">Services</h4>
-              <ul className="space-y-2">
-                {['Video Editing', 'Podcast Editing', 'Account Management', 'Brand Strategy'].map(service => (
-                  <li key={service}>{service}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white font-semibold mb-4">Subscribe</h4>
-              <form
-                onSubmit={async (e) => {
-                  e.preventDefault()
-                  const form = e.target as HTMLFormElement
-                  const email = (form.elements.namedItem('sub') as HTMLInputElement).value
-                  try {
-                    const res = await fetch('https://sheetdb.io/api/v1/41197uteml5jj', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ data: [{ Email: email }] }),
-                    })
-                    if (res.ok) form.reset()
-                    else {
-                      alert('Subscription failed.')
-                      console.error('SheetDB Error:', await res.text())
-                    }
-                  } catch (error) {
-                    console.error('Network error:', error)
-                  }
-                }}
-              >
-                <input
-                  name="sub"
-                  type="email"
-                  required
-                  placeholder="Your Email"
-                  className="w-full px-4 py-2 rounded-md mb-2 text-lime-400"
-                />
-                <button
-                  type="submit"
-                  className="w-full bg-lime-400 hover:bg-lime-500 text-black py-2 rounded-md font-medium"
-                >
-                  Subscribe
-                </button>
-              </form>
-            </div>
-          </div>
-          <div className="text-center text-gray-500 mt-10 text-xs">
-            © {new Date().getFullYear()} EditRelay. All rights reserved.
-          </div>
+        <footer className="bg-black text-gray-300 py-16 px-6 text-center text-xs">
+          © {new Date().getFullYear()} EditRelay. All rights reserved.
         </footer>
       </main>
     </>
