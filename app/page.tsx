@@ -52,40 +52,55 @@ export default function Home() {
 
       <main className="bg-white text-black font-sans max-w-7xl mx-auto">
 
-        <header className="w-full py-6 shadow-sm flex justify-between items-center sticky top-0 z-50 px-6 bg-white">
-          <a href="#home" className="flex items-center space-x-2">
-            <span className="text-xl text-lime-400 font-bold">EditRelay</span>
-          </a>
+<header className="w-full py-6 shadow-sm sticky top-0 z-50 bg-white">
+  <div className="max-w-7xl mx-auto grid grid-cols-3 items-center px-6">
+    {/* Logo Left */}
+    <a href="#home" className="flex items-center space-x-2">
+      <span className="text-xl text-lime-400 font-bold">EditRelay</span>
+    </a>
 
-          <button
-            className="md:hidden text-black focus:outline-none"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-              {menuOpen ? (
-                <path d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path d="M3 12h18M3 6h18M3 18h18" />
-              )}
-            </svg>
-          </button>
-
-          <nav className="hidden md:flex flex-1 justify-center">
-            <div className="bg-black text-white rounded-full px-8 py-3 flex space-x-8 text-md font-small">
-              {navItems.map(item => (
-                <a key={item} href={`#${item}`} className="hover:text-lime-400 transition capitalize">{item}</a>
-              ))}
-            </div>
-          </nav>
-
+    {/* Center Nav (Desktop Only) */}
+    <nav className="hidden md:flex justify-center">
+      <div className="bg-black text-white rounded-full px-8 py-3 flex space-x-8 text-md font-medium transition-all duration-300 ease-in-out will-change-transform">
+        {navItems.map(item => (
           <a
-            href="#contact"
-            className="ml-4 bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium hidden md:inline-block"
+            key={item}
+            href={`#${item}`}
+            className="hover:text-lime-400 capitalize transition-colors duration-300"
           >
-            Contact Us Today
+            {item}
           </a>
-        </header>
+        ))}
+      </div>
+    </nav>
+
+    {/* CTA Right (Desktop Only) */}
+    <div className="flex justify-end items-center space-x-4">
+      <a
+        href="#contact"
+        className="hidden md:inline-block bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium transition-all duration-300"
+      >
+        Contact Us Today
+      </a>
+
+      {/* Mobile Hamburger */}
+      <button
+        className="md:hidden text-black focus:outline-none"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Toggle menu"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+          {menuOpen ? (
+            <path d="M6 18L18 6M6 6l12 12" />
+          ) : (
+            <path d="M3 12h18M3 6h18M3 18h18" />
+          )}
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
 
 {menuOpen && (
   <nav
