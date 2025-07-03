@@ -56,12 +56,12 @@ useEffect(() => {
       </Head>
 
       <main className="bg-white text-black font-sans scroll-smooth">
-        <header className="w-full py-6 shadow-sm sticky top-0 z-50 bg-white flex justify-center px-6">
+<header className="w-full py-6 shadow-sm sticky top-0 z-50 bg-white flex justify-center px-6">
   <div className="max-w-7xl w-full flex items-center justify-between relative">
     {/* Logo */}
     <a href="#home" className="text-xl text-lime-400 font-bold">EditRelay</a>
 
-    {/* Centered Nav (Desktop) */}
+    {/* Centered Nav (Desktop Only) */}
     <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 bg-black text-white rounded-full px-8 py-3 space-x-8 text-md font-small">
       {navItems.map((item) => (
         <a
@@ -74,7 +74,7 @@ useEffect(() => {
       ))}
     </nav>
 
-    {/* Contact Button (Desktop) */}
+    {/* CTA (Desktop) */}
     <a
       href="#contact"
       className="hidden md:inline-block bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
@@ -82,7 +82,7 @@ useEffect(() => {
       Contact Us Today
     </a>
 
-    {/* Hamburger Button (Mobile) */}
+    {/* Hamburger (Mobile) */}
     <button
       className="md:hidden"
       onClick={() => setMenuOpen(true)}
@@ -102,14 +102,14 @@ useEffect(() => {
     </button>
   </div>
 
-  {/* Slide-in Menu (Mobile) */}
+  {/* Mobile Menu (Only one!) */}
   <div
-    className={`fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-40 ${
+    className={`fixed top-0 right-0 h-full w-3/4 max-w-sm bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
       menuOpen ? "translate-x-0" : "translate-x-full"
     }`}
   >
     <div className="flex flex-col px-6 py-8 space-y-6 h-full">
-      {/* Close Button */}
+      {/* X Button */}
       <button
         className="self-end text-black text-2xl"
         onClick={() => setMenuOpen(false)}
@@ -118,7 +118,7 @@ useEffect(() => {
         ✕
       </button>
 
-      {/* Menu Links */}
+      {/* Links */}
       {navItems.map((item) => (
         <a
           key={item}
@@ -129,6 +129,7 @@ useEffect(() => {
           {item}
         </a>
       ))}
+
       <a
         href="#contact"
         onClick={() => setMenuOpen(false)}
@@ -141,41 +142,8 @@ useEffect(() => {
 </header>
 
 
-        {menuOpen && (
-          <div
-            id="mobileMenuOverlay"
-            className="fixed inset-0 z-40 flex justify-end bg-black bg-opacity-0"
-            onClick={handleOverlayClick}
-          >
-            <div className="w-3/4 h-full bg-white shadow-lg flex flex-col px-6 py-8 space-y-6">
-              <button
-                className="self-end text-black"
-                onClick={() => setMenuOpen(false)}
-                aria-label="Close menu"
-              >
-                ✕
-              </button>
-              {navItems.map((item) => (
-                <a
-                  key={item}
-                  href={`#${item}`}
-                  onClick={() => setMenuOpen(false)}
-                  className="text-lg capitalize hover:text-lime-400"
-                >
-                  {item}
-                </a>
-              ))}
-              <a
-                href="#contact"
-                onClick={() => setMenuOpen(false)}
-                className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
-              >
-                Contact Us Today
-              </a>
-            </div>
-          </div>
-        )}
 
+        
         <section
           id="home"
           className="text-center py-24 px-4 bg-gradient-to-b from-green-50 to-white"
