@@ -56,47 +56,90 @@ useEffect(() => {
       </Head>
 
       <main className="bg-white text-black font-sans scroll-smooth">
-        <header className="w-full py-6 shadow-sm sticky top-0 z-50 bg-white flex items-center justify-center px-6">
-          <div className="max-w-7xl w-full flex items-center justify-between">
-            <a href="#home" className="text-xl text-lime-400 font-bold">
-              EditRelay
-            </a>
-            <nav className="hidden md:flex bg-black text-white rounded-full px-8 py-3 space-x-8 text-md font-small">
-              {navItems.map((item) => (
-                <a
-                  key={item}
-                  href={`#${item}`}
-                  className="hover:text-lime-400 capitalize"
-                >
-                  {item}
-                </a>
-              ))}
-            </nav>
-            <a
-              href="#contact"
-              className="hidden md:inline-block ml-4 bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
-            >
-              Contact Us Today
-            </a>
-            <button
-              className="md:hidden"
-              onClick={() => setMenuOpen(true)}
-              aria-label="Open menu"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M3 12h18M3 6h18M3 18h18" />
-              </svg>
-            </button>
-          </div>
-        </header>
+        <header className="w-full py-6 shadow-sm sticky top-0 z-50 bg-white flex justify-center px-6">
+  <div className="max-w-7xl w-full flex items-center justify-between relative">
+    {/* Logo */}
+    <a href="#home" className="text-xl text-lime-400 font-bold">EditRelay</a>
+
+    {/* Centered Nav (Desktop) */}
+    <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 bg-black text-white rounded-full px-8 py-3 space-x-8 text-md font-small">
+      {navItems.map((item) => (
+        <a
+          key={item}
+          href={`#${item}`}
+          className="hover:text-lime-400 capitalize"
+        >
+          {item}
+        </a>
+      ))}
+    </nav>
+
+    {/* Contact Button (Desktop) */}
+    <a
+      href="#contact"
+      className="hidden md:inline-block bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
+    >
+      Contact Us Today
+    </a>
+
+    {/* Hamburger Button (Mobile) */}
+    <button
+      className="md:hidden"
+      onClick={() => setMenuOpen(true)}
+      aria-label="Open menu"
+    >
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M3 12h18M3 6h18M3 18h18" />
+      </svg>
+    </button>
+  </div>
+
+  {/* Slide-in Menu (Mobile) */}
+  <div
+    className={`fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-40 ${
+      menuOpen ? "translate-x-0" : "translate-x-full"
+    }`}
+  >
+    <div className="flex flex-col px-6 py-8 space-y-6 h-full">
+      {/* Close Button */}
+      <button
+        className="self-end text-black text-2xl"
+        onClick={() => setMenuOpen(false)}
+        aria-label="Close menu"
+      >
+        ✕
+      </button>
+
+      {/* Menu Links */}
+      {navItems.map((item) => (
+        <a
+          key={item}
+          href={`#${item}`}
+          onClick={() => setMenuOpen(false)}
+          className="text-lg capitalize hover:text-lime-400"
+        >
+          {item}
+        </a>
+      ))}
+      <a
+        href="#contact"
+        onClick={() => setMenuOpen(false)}
+        className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
+      >
+        Contact Us Today
+      </a>
+    </div>
+  </div>
+</header>
+
 
         {menuOpen && (
           <div
