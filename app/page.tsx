@@ -1,226 +1,207 @@
-'use client'
+"use client";
 
-import Head from 'next/head'
-import { useState, useEffect } from 'react'
-import emailjs from '@emailjs/browser'
+import Head from "next/head";
+import { useEffect, useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 export default function Home() {
-  const [text, setText] = useState('')
-  const [loopNum, setLoopNum] = useState(0)
-  const [deleting, setDeleting] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const words = ['editing', 'repurposing', 'management']
+  const [text, setText] = useState("");
+  const [loopNum, setLoopNum] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navItems = ["home", "about", "services", "contact"];
+  const words = ["editing", "repurposing", "management"];
 
   useEffect(() => {
-    const handleType = () => {
-      const fullText = words[loopNum % words.length]
-      setText(deleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1))
+    document.body.style.overflow = menuOpen ? "hidden" : "auto";
+  }, [menuOpen]);
 
-      if (!deleting && text === fullText) {
-        setTimeout(() => setDeleting(true), 1000)
-      } else if (deleting && text === '') {
-        setDeleting(false)
-        setLoopNum(loopNum + 1)
-      }
+useEffect(() => {
+  const fullText = words[loopNum % words.length];
+  const updatedText = deleting
+    ? fullText.substring(0, text.length - 1)
+    : fullText.substring(0, text.length + 1);
+  const typingDelay = deleting ? 50 : 120;
+
+  const timeout = setTimeout(() => {
+    setText(updatedText);
+    if (!deleting && updatedText === fullText) {
+      setTimeout(() => setDeleting(true), 1000);
+    } else if (deleting && updatedText === "") {
+      setDeleting(false);
+      setLoopNum((prev) => prev + 1);
     }
-    const speed = deleting ? 50 : 120
-    const timer = setTimeout(handleType, speed)
-    return () => clearTimeout(timer)
-  }, [text, deleting, loopNum])
+  }, typingDelay);
 
-  const navItems = ['home', 'about', 'services', 'contact']
+  return () => clearTimeout(timeout);
+}, [text, deleting, loopNum, words]);
+
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  if ((e.target as HTMLElement).id === "mobileMenuOverlay") {
+    setMenuOpen(false);
+  }
+};
+
 
   return (
     <>
       <Head>
-        <title>EditRelay – Expert Video Editing & Content Services</title>
-        <meta name="description" content="EditRelay partners with creators to accelerate growth through professional video editing, podcast production, content repurposing, and strategic account management." />
-        <meta name="keywords" content="video editing, podcast editing, content repurposing, YouTube growth, social media management, EditRelay, content agency" />
-        <meta name="author" content="EditRelay Team" />
+        <title>EditRelay – Video Editing & Content Agency</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href="https://editrelay.com" />
-        <meta property="og:title" content="EditRelay – Expert Video Editing & Content Services" />
-        <meta property="og:description" content="Empowering creators with high-quality content editing, strategic repurposing, and digital management solutions." />
-        <meta property="og:image" content="https://editrelay.com/og-image.png" />
-        <meta property="og:url" content="https://editrelay.com" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="EditRelay – Expert Video Editing & Content Services" />
-        <meta name="twitter:description" content="Boost your brand with professional editing, content repurposing, and digital growth management." />
-        <meta name="twitter:image" content="https://editrelay.com/og-image.png" />
+        <meta
+          name="description"
+          content="EditRelay helps creators grow with video editing, podcast production, account management, and content repurposing services."
+        />
       </Head>
 
-      <main className="bg-white text-black font-sans max-w-7xl mx-auto">
+      <main className="bg-white text-black font-sans scroll-smooth">
+        <header className="w-full py-6 shadow-sm sticky top-0 z-50 bg-white flex items-center justify-center px-6">
+          <div className="max-w-7xl w-full flex items-center justify-between">
+            <a href="#home" className="text-xl text-lime-400 font-bold">
+              EditRelay
+            </a>
+            <nav className="hidden md:flex bg-black text-white rounded-full px-8 py-3 space-x-8 text-md font-small">
+              {navItems.map((item) => (
+                <a
+                  key={item}
+                  href={`#${item}`}
+                  className="hover:text-lime-400 capitalize"
+                >
+                  {item}
+                </a>
+              ))}
+            </nav>
+            <a
+              href="#contact"
+              className="hidden md:inline-block ml-4 bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
+            >
+              Contact Us Today
+            </a>
+            <button
+              className="md:hidden"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 12h18M3 6h18M3 18h18" />
+              </svg>
+            </button>
+          </div>
+        </header>
 
-<header className="w-full py-6 shadow-sm sticky top-0 z-50 bg-white">
-  <div className="max-w-7xl mx-auto grid grid-cols-3 items-center px-6">
-    {/* Logo Left */}
-    <a href="#home" className="flex items-center space-x-2">
-      <span className="text-xl text-lime-400 font-bold">EditRelay</span>
-    </a>
-
-    {/* Center Nav (Desktop Only) */}
-    <nav className="hidden md:flex justify-center">
-      <div className="bg-black text-white rounded-full px-8 py-3 flex space-x-8 text-md font-medium transition-all duration-300 ease-in-out will-change-transform">
-        {navItems.map(item => (
-          <a
-            key={item}
-            href={`#${item}`}
-            className="hover:text-lime-400 capitalize transition-colors duration-300"
+        {menuOpen && (
+          <div
+            id="mobileMenuOverlay"
+            className="fixed inset-0 z-40 flex justify-end bg-black bg-opacity-0"
+            onClick={handleOverlayClick}
           >
-            {item}
-          </a>
-        ))}
-      </div>
-    </nav>
+            <div className="w-3/4 h-full bg-white shadow-lg flex flex-col px-6 py-8 space-y-6">
+              <button
+                className="self-end text-black"
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                ✕
+              </button>
+              {navItems.map((item) => (
+                <a
+                  key={item}
+                  href={`#${item}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-lg capitalize hover:text-lime-400"
+                >
+                  {item}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={() => setMenuOpen(false)}
+                className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
+              >
+                Contact Us Today
+              </a>
+            </div>
+          </div>
+        )}
 
-    {/* CTA Right (Desktop Only) */}
-    <div className="flex justify-end items-center space-x-4">
-      <a
-        href="#contact"
-        className="hidden md:inline-block bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium transition-all duration-300"
-      >
-        Contact Us Today
-      </a>
-
-      {/* Mobile Hamburger */}
-      <button
-        className="md:hidden text-black focus:outline-none"
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-label="Toggle menu"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-          {menuOpen ? (
-            <path d="M6 18L18 6M6 6l12 12" />
-          ) : (
-            <path d="M3 12h18M3 6h18M3 18h18" />
-          )}
-        </svg>
-      </button>
-    </div>
-  </div>
-</header>
-
-
-{menuOpen && (
-  <nav
-    className="
-      fixed top-0 right-0 h-full w-64 bg-black text-white
-      flex flex-col items-center space-y-6 py-10 px-6
-      z-50
-      transform transition-transform duration-300 ease-in-out
-    "
-    style={{ transform: menuOpen ? 'translateX(0)' : 'translateX(100%)' }}
-  >
-    {/* Close button */}
-    <button
-      onClick={() => setMenuOpen(false)}
-      aria-label="Close menu"
-      className="self-end mb-6 text-white hover:text-lime-400 focus:outline-none"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-8 w-8"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
-
-    {navItems.map((item) => (
-      <a
-        key={item}
-        href={`#${item}`}
-        onClick={() => setMenuOpen(false)}
-        className="hover:text-lime-400 transition text-lg capitalize"
-      >
-        {item}
-      </a>
-    ))}
-
-    <a
-      href="#contact"
-      onClick={() => setMenuOpen(false)}
-      className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
-    >
-      Contact Us Today
-    </a>
-  </nav>
-)}
-
-
-        <section id="home" className="text-center py-24 px-4 bg-gradient-to-b from-green-50 to-white">
+        <section
+          id="home"
+          className="text-center py-24 px-4 bg-gradient-to-b from-green-50 to-white"
+        >
           <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            Elevate Your Brand<br />with Expert Digital Content
+            Crafting Tomorrow's Brands<br />with Digital Creativity
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-            We empower creators to scale through professional content <span className="text-lime-400 font-semibold">{text}</span> and creative strategy.
+            At the forefront of innovation, we help creators scale through
+            content <span className="text-lime-400 font-semibold">{text}</span>.
           </p>
-          <a href="#contact" className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium">
-            Get Started Today
+          <a
+            href="#contact"
+            className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
+          >
+            Let’s Talk Now
           </a>
-        </section>
-
-        <section className="py-10 text-center">
-          <p className="text-gray-500">Trusted by over 50 creators and innovative startups</p>
-          <div className="flex justify-center gap-8 mt-4 text-sm text-gray-400">
-            {['CreatorHub', 'VideoMax', 'PodSync', 'ReelBoost'].map(client => (
-              <span key={client}>{client}</span>
-            ))}
-          </div>
         </section>
 
         <section id="about" className="bg-gray-100 py-20 text-center">
           <h2 className="text-3xl font-bold mb-6">About EditRelay</h2>
           <p className="max-w-2xl mx-auto text-gray-600 mb-10">
-            We’re a creative agency dedicated to helping creators and brands thrive with premium video editing, content strategy, and modern production tailored to grow your reach and engagement.
+            We help creators and brands thrive through premium video editing,
+            content strategy, and digital production solutions.
           </p>
-          <div className="flex justify-center gap-12 text-gray-700 text-center">
-            {[
-              { num: '50+', label: 'Satisfied Clients' },
-              { num: '5+ Years', label: 'Industry Experience' },
-              { num: '100%', label: 'Client Satisfaction' },
-            ].map(({ num, label }) => (
-              <div key={label}>
-                <p className="text-4xl font-bold">{num}</p>
-                <p>{label}</p>
+          <div className="flex justify-center gap-12 text-gray-700">
+            {["50+ Clients", "5+ Years", "100% Satisfaction"].map((text, i) => (
+              <div key={i}>
+                <p className="text-4xl font-bold">{text.split(" ")[0]}</p>
+                <p>{text.split(" ")[1]}</p>
               </div>
             ))}
           </div>
         </section>
 
         <section id="services" className="py-20 text-center px-4">
-          <h2 className="text-3xl font-bold mb-6">Our Services</h2>
+          <h2 className="text-3xl font-bold mb-6">What We Offer</h2>
           <div className="flex flex-wrap justify-center gap-4 text-lg">
-            {['Video Editing', 'Podcast Production', 'Account Management', 'YouTube Growth', 'Content Repurposing'].map(service => (
-              <span key={service} className="bg-gray-200 px-5 py-2 rounded-full">{service}</span>
-            ))}
+            {["Video Editing", "Podcast Editing", "Account Management", "YouTube Growth", "Content Repurposing"].map(
+              (service) => (
+                <span
+                  key={service}
+                  className="bg-gray-200 px-5 py-2 rounded-full"
+                >
+                  {service}
+                </span>
+              )
+            )}
           </div>
         </section>
 
         <section id="contact" className="bg-gray-100 py-20 px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Get in Touch</h2>
+          <h2 className="text-3xl font-bold mb-6">Contact Us</h2>
           <form
             onSubmit={(e) => {
-              e.preventDefault()
-              const form = e.target as HTMLFormElement
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
               emailjs.sendForm(
                 process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
                 process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
                 form,
                 process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-              )
+              );
               emailjs.sendForm(
                 process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
                 process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID!,
                 form,
                 process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-              )
-                .then(() => form.reset())
-                .catch(console.error)
+              ).then(() => form.reset());
             }}
             className="max-w-lg mx-auto space-y-4"
           >
@@ -228,14 +209,14 @@ export default function Home() {
               name="email"
               type="email"
               required
-              placeholder="Enter your email address"
+              placeholder="Your Email"
               className="w-full px-4 py-3 border border-gray-300 rounded-md"
             />
             <textarea
               name="message"
               rows={4}
               required
-              placeholder="Tell us how we can help you"
+              placeholder="How can we help?"
               className="w-full px-4 py-3 border border-gray-300 rounded-md"
             />
             <button
@@ -247,89 +228,58 @@ export default function Home() {
           </form>
         </section>
 
-        <section className="bg-black text-white text-center py-20 px-4">
-          <h2 className="text-4xl font-bold mb-4">
-            Let's Build Your Success Story<br />Together
-          </h2>
-          <p className="text-gray-400 mb-6 max-w-xl mx-auto">
-            Growth takes time. Let EditRelay guide your content journey with expertise and care.
-          </p>
-          <a href="#contact" className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium">
-            Contact Us Today
-          </a>
-        </section>
-
-<footer className="bg-black text-gray-300 py-16 px-6 text-center text-xs max-w-7xl mx-auto">
-  <div className="grid md:grid-cols-4 gap-12 text-sm text-left">
-    <div>
-      <h3 className="text-white text-xl font-semibold mb-4">EditRelay</h3>
-      <p className="text-gray-400">Helping creators scale with content, strategy, and design.</p>
-    </div>
-
-    <div>
-      <h4 className="text-white font-semibold mb-4">Services</h4>
-      <ul className="space-y-2">
-        {['Video Editing', 'Podcast Production', 'Account Management', 'Brand Strategy'].map(service => (
-          <li key={service}>{service}</li>
-        ))}
-      </ul>
-    </div>
-
-    <div>
-      <h4 className="text-white font-semibold mb-4">Subscribe</h4>
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault()
-          const form = e.target as HTMLFormElement
-          const email = (form.elements.namedItem('sub') as HTMLInputElement).value
-          try {
-            const res = await fetch('https://sheetdb.io/api/v1/41197uteml5jj', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ data: [{ Email: email }] }),
-            })
-            if (res.ok) form.reset()
-            else {
-              alert('Subscription failed.')
-              console.error('SheetDB Error:', await res.text())
-            }
-          } catch (error) {
-            console.error('Network error:', error)
-          }
-        }}
-        className="max-w-sm"
-      >
-        <input
-          name="sub"
-          type="email"
-          required
-          placeholder="Your Email"
-          className="w-full px-4 py-2 rounded-md mb-2 text-lime-400"
-        />
-        <button
-          type="submit"
-          className="w-full bg-lime-400 hover:bg-lime-500 text-black py-2 rounded-md font-medium"
-        >
-          Subscribe
-        </button>
-      </form>
-    </div>
-
-    <div>
-      <h4 className="text-white font-semibold mb-4">Contact</h4>
-      <p className="text-gray-400">Reach out to start growing your brand with us.</p>
-      <a href="#contact" className="inline-block mt-2 bg-lime-400 hover:bg-lime-500 text-black px-4 py-2 rounded-full font-medium">
-        Contact Us Today
-      </a>
-    </div>
-  </div>
-
-  <div className="mt-10 text-center text-gray-500">
-    © {new Date().getFullYear()} EditRelay. All rights reserved.
-  </div>
-</footer>
-
+        <footer className="bg-black text-gray-300 py-16 px-6">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 text-sm">
+            <div>
+              <h3 className="text-white text-xl font-semibold mb-4">EditRelay</h3>
+              <p className="text-gray-400">
+                Helping creators scale with content, strategy, and design.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Services</h4>
+              <ul className="space-y-2">
+                {["Video Editing", "Podcast Editing", "Account Management", "Brand Strategy"].map((s) => (
+                  <li key={s}>{s}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Subscribe</h4>
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.target as HTMLFormElement;
+                  const email = (form.elements.namedItem("sub") as HTMLInputElement).value;
+                  const res = await fetch("https://sheetdb.io/api/v1/41197uteml5jj", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ data: [{ Email: email }] }),
+                  });
+                  if (res.ok) form.reset();
+                }}
+              >
+                <input
+                  name="sub"
+                  type="email"
+                  required
+                  placeholder="Your Email"
+                  className="w-full px-4 py-2 rounded-md mb-2 text-lime-400"
+                />
+                <button
+                  type="submit"
+                  className="w-full bg-lime-400 hover:bg-lime-500 text-black py-2 rounded-md font-medium"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
+          <div className="text-center text-gray-500 mt-10 text-xs">
+            © {new Date().getFullYear()} EditRelay. All rights reserved.
+          </div>
+        </footer>
       </main>
     </>
-  )
+  );
 }
