@@ -89,7 +89,13 @@ export default function Home() {
 
 {menuOpen && (
   <nav
-    className="md:hidden bg-black bg-opacity-95 text-white flex flex-col items-center space-y-4 py-4 rounded-b-lg mt-2 mx-6 sticky top-16 z-50"
+    className="
+      fixed top-0 right-0 h-full w-64 bg-black bg-opacity-95 text-white
+      flex flex-col items-center space-y-6 py-10 px-6
+      z-50
+      transform transition-transform duration-300
+    "
+    style={{ transform: menuOpen ? 'translateX(0)' : 'translateX(100%)' }}
   >
     {navItems.map(item => (
       <a
