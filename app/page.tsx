@@ -88,33 +88,43 @@ export default function Home() {
         </header>
 
 {menuOpen && (
-  <nav
-    className="
-      fixed top-0 right-0 h-full w-64 bg-black bg-opacity-95 text-white
-      flex flex-col items-center space-y-6 py-10 px-6
-      z-50
-      transform transition-transform duration-300
-    "
-    style={{ transform: menuOpen ? 'translateX(0)' : 'translateX(100%)' }}
-  >
-    {navItems.map(item => (
-      <a
-        key={item}
-        href={`#${item}`}
-        onClick={() => setMenuOpen(false)}
-        className="hover:text-lime-400 transition text-lg capitalize"
-      >
-        {item}
-      </a>
-    ))}
-    <a
-      href="#contact"
+  <>
+    {/* Overlay: fills the screen, semi-transparent, closes menu on click */}
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 z-40"
       onClick={() => setMenuOpen(false)}
-      className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
+    ></div>
+
+    {/* Sliding menu from the right */}
+    <nav
+      className="
+        fixed top-0 right-0 h-full w-64 bg-black bg-opacity-95 text-white
+        flex flex-col items-center space-y-6 py-10 px-6
+        z-50
+        transform transition-transform duration-300
+      "
+      style={{ transform: menuOpen ? 'translateX(0)' : 'translateX(100%)' }}
+      onClick={(e) => e.stopPropagation()} // Prevent clicks inside menu from closing it
     >
-      Contact Us Today
-    </a>
-  </nav>
+      {navItems.map(item => (
+        <a
+          key={item}
+          href={`#${item}`}
+          onClick={() => setMenuOpen(false)}
+          className="hover:text-lime-400 transition text-lg capitalize"
+        >
+          {item}
+        </a>
+      ))}
+      <a
+        href="#contact"
+        onClick={() => setMenuOpen(false)}
+        className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
+      >
+        Contact Us Today
+      </a>
+    </nav>
+  </>
 )}
 
 
