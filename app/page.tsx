@@ -88,43 +88,52 @@ export default function Home() {
         </header>
 
 {menuOpen && (
-  <>
-    {/* Overlay: fills the screen, semi-transparent, closes menu on click */}
-    <div
-      className="fixed inset-0 bg-black bg-opacity-50 z-40"
+  <nav
+    className="
+      fixed top-0 right-0 h-full w-64 bg-black text-white
+      flex flex-col items-center space-y-6 py-10 px-6
+      z-50
+      transform transition-transform duration-300 ease-in-out
+    "
+    style={{ transform: menuOpen ? 'translateX(0)' : 'translateX(100%)' }}
+  >
+    {/* Close button */}
+    <button
       onClick={() => setMenuOpen(false)}
-    ></div>
-
-    {/* Sliding menu from the right */}
-    <nav
-      className="
-        fixed top-0 right-0 h-full w-64 bg-black bg-opacity-95 text-white
-        flex flex-col items-center space-y-6 py-10 px-6
-        z-50
-        transform transition-transform duration-300
-      "
-      style={{ transform: menuOpen ? 'translateX(0)' : 'translateX(100%)' }}
-      onClick={(e) => e.stopPropagation()} // Prevent clicks inside menu from closing it
+      aria-label="Close menu"
+      className="self-end mb-6 text-white hover:text-lime-400 focus:outline-none"
     >
-      {navItems.map(item => (
-        <a
-          key={item}
-          href={`#${item}`}
-          onClick={() => setMenuOpen(false)}
-          className="hover:text-lime-400 transition text-lg capitalize"
-        >
-          {item}
-        </a>
-      ))}
-      <a
-        href="#contact"
-        onClick={() => setMenuOpen(false)}
-        className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-8 w-8"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
       >
-        Contact Us Today
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    {navItems.map((item) => (
+      <a
+        key={item}
+        href={`#${item}`}
+        onClick={() => setMenuOpen(false)}
+        className="hover:text-lime-400 transition text-lg capitalize"
+      >
+        {item}
       </a>
-    </nav>
-  </>
+    ))}
+
+    <a
+      href="#contact"
+      onClick={() => setMenuOpen(false)}
+      className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
+    >
+      Contact Us Today
+    </a>
+  </nav>
 )}
 
 
