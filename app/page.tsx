@@ -87,27 +87,30 @@ export default function Home() {
           </a>
         </header>
 
-        {menuOpen && (
-          <nav className="md:hidden bg-black bg-opacity-95 text-white flex flex-col items-center space-y-4 py-4 rounded-b-lg mt-2 mx-6">
-            {navItems.map(item => (
-              <a
-                key={item}
-                href={`#${item}`}
-                onClick={() => setMenuOpen(false)}
-                className="hover:text-lime-400 transition text-lg capitalize"
-              >
-                {item}
-              </a>
-            ))}
-            <a
-              href="#contact"
-              onClick={() => setMenuOpen(false)}
-              className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
-            >
-              Contact Us Today
-            </a>
-          </nav>
-        )}
+{menuOpen && (
+  <nav
+    className="md:hidden bg-black bg-opacity-95 text-white flex flex-col items-center space-y-4 py-4 rounded-b-lg mt-2 mx-6 sticky top-16 z-50"
+  >
+    {navItems.map(item => (
+      <a
+        key={item}
+        href={`#${item}`}
+        onClick={() => setMenuOpen(false)}
+        className="hover:text-lime-400 transition text-lg capitalize"
+      >
+        {item}
+      </a>
+    ))}
+    <a
+      href="#contact"
+      onClick={() => setMenuOpen(false)}
+      className="bg-lime-400 hover:bg-lime-500 text-black px-6 py-3 rounded-full font-medium"
+    >
+      Contact Us Today
+    </a>
+  </nav>
+)}
+
 
         <section id="home" className="text-center py-24 px-4 bg-gradient-to-b from-green-50 to-white">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">
